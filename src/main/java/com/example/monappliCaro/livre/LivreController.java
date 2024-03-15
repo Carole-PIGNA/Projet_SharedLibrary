@@ -2,9 +2,8 @@ package com.example.monappliCaro.livre;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -21,5 +20,20 @@ public class LivreController {
     public List<Livre> getLivres() {
         return livreService.getLivres();
 
+    }
+    @PostMapping
+    public void registerNewLivre (@RequestBody Livre livre){
+        livreService.addNewLivre(livre);
+    }
+    @DeleteMapping(path = "{livreId}")
+    public void deleteLivre(@PathVariable("livreId") Long livreId){
+        livreService.deleteLivre(livreId);
+    }
+
+    @PutMapping(path = "{livreId}")
+    public void updateLivre(
+            @PathVariable("livreId") Long livreId,
+            @RequestParam(required = false) String proprio ){
+        livreService.updateLivre(livreId, proprio);
     }
 }
